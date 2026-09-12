@@ -1,0 +1,18 @@
+		<rewrite>
+			<rules>
+				<rule name="bakaweb" stopProcessing="true">
+					<match url=".*"/>
+					<conditions>
+						<add input="{HTTPS}" pattern="off"/>
+					</conditions>
+					<action type="Redirect" url="https://{HTTP_HOST}/{R:0}" redirectType="Found"/>
+				</rule>
+				<rule name="Block cookieconsent.bundle.js if Referer is Timetable/Public" stopProcessing="true">
+					<match url=".*cookieconsent\.bundle\.js"/>
+					<conditions>
+						<add input="{HTTP_REFERER}" pattern="/Timetable/Public"/>
+					</conditions>
+					<action type="CustomResponse" statusCode="403" statusReason="Forbidden" statusDescription="Blocked by Referer Rule"/>
+				</rule>
+			</rules>
+		</rewrite>
